@@ -11,6 +11,7 @@ from app.bot.task import MailingTask
 from app.db import AiosqliteConnection, Subscribers, create_db
 from app.logger import logger
 from app.weather import OwmWeather
+from app.bot.webhook import Webhook
 
 
 @logger.catch(level="CRITICAL")
@@ -34,4 +35,11 @@ async def main():
         if config.RUN_TYPE == "polling":
             await Polling(dp, tasks=[task]).run(bot)
         elif config.RUN_TYPE == "webhook":
-            ...
+            await Webhook(
+                dp,
+                [task],
+                config.WEBHOOK_URL,
+                config.WEBHOOK_PATH,
+                config.WEBHOOK_HOST,
+                config.WEBHOOK_PORT,
+            ).run(bot)

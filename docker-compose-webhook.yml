@@ -1,0 +1,16 @@
+version: "3"
+services:
+  bot:
+    build: .
+    environment:
+      - BOT_TOKEN
+      - WEATHER_API_KEY
+      - RUN_TYPE
+      - DATABASE_URL
+      - WEBHOOK_URL
+      - WEBHOOK_PATH
+      - WEBHOOK_HOST
+      - WEBHOOK_PORT
+    ports:
+      - 8080:8080
+    command: python -m app
